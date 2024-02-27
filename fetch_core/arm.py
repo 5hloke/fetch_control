@@ -136,6 +136,6 @@ if __name__ == "__main__" :
 
     rospy.loginfo("Setting positions...")
     arm.move_to_waypoints(joint_States)
-    arm.get.client.wait_for_result(rospy.Duration(joint_States[-1, 0, 0]))
+    arm.get_client.wait_for_result(rospy.Duration(joint_States[-1, 0, 0]))
     rospy.loginfo("...done")
     
