@@ -24,6 +24,6 @@ class ArmControl(object):
     
     def move_to_joints(self):
         goal = control_msgs.action.FollowJointTrajectory()
-        goal.trajectory.joint_names
+        goal.trajectory.joint_names = 
 
         
