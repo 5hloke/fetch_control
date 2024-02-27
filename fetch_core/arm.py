@@ -52,7 +52,7 @@ class Arm(object):
             trajectory.points[i].time_from_start = rospy.Duration(waypoints[i, 0, 0])
             
         goal.trajectory = trajectory
-        goal.time_tolerance = rospy.Duration(0.0)
+        goal.goal_time_tolerance = rospy.Duration(0.0)
         self._joint_client.send_goal(goal)
     
     def get_client(self):
