@@ -47,8 +47,8 @@ class Arm(object):
         for i in range(waypoints.shape[0]):
             trajectory.points.append(point)
             trajectory.points[i].positions = waypoints[i, 1, :]
-            trajectory.points[i].point.velocity = waypoints[i, 2, :]
-            trajectory.points[i].point.accelerations = [0.0] * len(waypoints[i, 1, :]) # Because there is no acceleration data
+            trajectory.points[i].velocity = waypoints[i, 2, :]
+            trajectory.points[i].accelerations = [0.0] * len(waypoints[i, 1, :]) # Because there is no acceleration data
             trajectory.points[i].time_from_start = rospy.Duration(waypoints[i, 0, 0])
             
         goal.trajectory = trajectory
