@@ -55,8 +55,8 @@ class Arm(object):
         goal.goal_time_tolerance = rospy.Duration(0.0)
         self._joint_client.send_goal(goal)
     
-    def get_client(self):
-        return self._joint_client
+    def wait_client(self, time):
+        self._joint_client.wait_for_result(rospy.Duration(time))
     
     def cancel_all_goals(self):
         self._joint_client.cancel_all_goals()
@@ -136,6 +136,6 @@ if __name__ == "__main__" :
 
     rospy.loginfo("Setting positions...")
     arm.move_to_waypoints(joint_States)
-    arm.get_client.wait_for_result(rospy.Duration(joint_States[-1, 0, 0]))
+    arm.wait_client(joint_States[-1, 0, 0] + 5)
     rospy.loginfo("...done")
     
