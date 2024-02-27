@@ -43,13 +43,14 @@ class Arm(object):
     def move_to_waypoints(self, waypoints):
         trajectory = JointTrajectory()
         goal = control_msgs.msg.FollowJointTrajectoryGoal()
+        point = JointTrajectoryPoint()
         for i in range(waypoints.shape[0]):
-            point = JointTrajectoryPoint()
-            point.positions = waypoints[i, 1, :]
-            point.velocity = waypoints[i, 2, :]
-            point.accelerations = [0.0] * len(waypoints[i, 1, :]) # Because there is no acceleration data
-            point.time_from_start = rospy.Duration(waypoints[i, 0, 0])
             trajectory.points.append(point)
+            trajectory.point[i].positions = waypoints[i, 1, :]
+            trajectory.point[i].point.velocity = waypoints[i, 2, :]
+            trajectory.point[i].point.accelerations = [0.0] * len(waypoints[i, 1, :]) # Because there is no acceleration data
+            point.time_from_start = rospy.Duration(waypoints[i, 0, 0])
+            
         goal.trajectory = trajectory
         goal.time_tolerance = rospy.Duration(0.0)
         self._joint_client.send_goal(goal)
