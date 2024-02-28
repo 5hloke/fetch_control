@@ -22,7 +22,8 @@ ARM_GROUP_NAME = 'arm'
 JOINT_ACTION_SERVER = 'arm_controller/follow_joint_trajectory'
 # JOINT_ACTION_SERVER = 'arm_with_torso_controller/follow_joint_trajectory'
 TIME_FROM_START = 5
-
+arm_joint_names = ["shoulder_pan_joint", "shoulder_lift_joint", "upperarm_roll_joint",
+              "elbow_flex_joint", "forearm_roll_joint", "wrist_flex_joint", "wrist_roll_joint"]
 
 class Arm(object):
     """Arm controls the robot's arm.
@@ -42,6 +43,7 @@ class Arm(object):
 
     def move_to_waypoints(self, waypoints):
         trajectory = JointTrajectory()
+        trajectory.joint_names = arm_joint_names
         goal = control_msgs.msg.FollowJointTrajectoryGoal()
         point = JointTrajectoryPoint()
         for i in range(waypoints.shape[0]):
