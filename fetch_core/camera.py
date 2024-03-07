@@ -5,10 +5,10 @@ from pprint import pprint
 from sensor_msgs.msg import CameraInfo, Image, JointState, PointCloud2
 from cv_bridge import CvBridge, CvBridgeError
 
-import tf
-import tf2_ros
-import tf2_geometry_msgs
-import IPython
+# import tf
+# import tf2_ros
+# import tf2_geometry_msgs
+# import IPython
 
 
 class RGBD(object):
@@ -18,9 +18,9 @@ class RGBD(object):
         topic_name_c = 'head_camera/rgb/image_raw'
         topic_name_i = 'head_camera/rgb/camera_info'
         #Simulation:
-        topic_name_d = 'head_camera/depth_registered/image_raw'
+        # topic_name_d = 'head_camera/depth_registered/image_raw'
         #Physical Robot
-        #topic_name_d = 'head_camera/depth/image_raw'
+        topic_name_d = 'head_camera/depth/image_raw'
 
         self._bridge = CvBridge()
         self._input_color_image = None
@@ -72,3 +72,26 @@ class RGBD(object):
 
     def read_info_data(self):
         return self._info
+
+
+if __name__ == "__main__":
+    rospy.init_node("fetch_rgbd")
+    rgbd = RGBD()
+    while not rgbd.is_updated:
+        print("Not Updated")
+        time.sleep(0.1)
+    color_image = rgbd.read_color_data()
+    depth_image = rgbd.read_depth_data()
+    info = rgbd.read_info_data()
+    print("Color image shape: ", color_image.shape)
+    print("Depth image shape: ", depth_image.shape)
+    print("Camera Info: ", info)
+    #save the images to a file
+    cv2.imwrite("color_image.png", color_image)
+    cv2.imwrite("depth_image.png", depth_image)
+    # cv2.imshow('color', color_image)
+    # cv2.imshow('depth', depth_image)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+    rospy.spin()
+    sys.exit(0)
