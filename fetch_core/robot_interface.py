@@ -8,6 +8,7 @@ from cv_bridge import CvBridge, CvBridgeError
 import copy, math, rospy, time
 #import config_core as cfg # ?
 import numpy as np
+import matplotlib.pyplot as plt
 
 from arm import Arm
 from arm_joints import ArmJoints
@@ -21,7 +22,7 @@ DEG_TO_RAD = np.pi / 180
 ZRANGE = 20
 
 
-class Robot_Interface(object):
+class Fetch(object):
     """For usage with the Fetch robot."""
 
     def __init__(self, simulation=True):
@@ -55,9 +56,26 @@ class Robot_Interface(object):
         yaw = Base._yaw_from_quaternion(self.base.odom.orientation)
         self.start_pose = np.array([start.x, start.y, yaw])
         self.TURN_SPEED = 0.3
+        self.joint_waypoints = None
+        self.time_int = None
 
         self.num_restarts = 0
 
+    def read_joint_waypoints(self, waypoints):
+        self.joint_waypoints = waypoints[:, 1, :]
+        self.time_int = waypoints[:, 0, 0]
+
+    def move_arm_joints(self, waypoints):
+        """Move the arm to a sequence of joint configurations.
+        
+        Args:
+            waypoints: List of joint configurations.
+        """
+        rospy.loginfo("Setting arm positions...")
+        self.arm.move_to_waypoints(waypoints)
+        self.result = self.arm.wait_client(waypoints[-1, 0, 0] + 5)
+        rospy.loginfo("...Arm done")
+        return self.result
 
     def get_img_data(self):
         """Obtain camera and depth image.

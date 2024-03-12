@@ -2,6 +2,7 @@
 
 import rospy
 from sensor_msgs.msg import JointState
+import numpy as np
 
 class JointStateReader(object):
     """Listens to /joint_states and provides the latest joint angles.
@@ -47,3 +48,17 @@ class JointStateReader(object):
             have a value for that joint yet.
         """
         return [self.get_joint(name) for name in names]
+    
+# if __name__ == "__main__":
+#     rospy.init_node("joint_state_reader")
+#     joint_states = np.load("../export_0304/2_folded_to_side/output_traj.npy")
+#     joint_reader = JointStateReader()
+#     rospy.sleep(0.1)
+#     # print(joint_reader.get_joint('shoulder_pan_joint'))
+#     # print(joint_reader.get_joints(['shoulder_pan_joint', 'shoulder_lift_joint']))
+#     names = ['shoulder_pan_joint', 'shoulder_lift_joint', 'upperarm_roll_joint', 'elbow_flex_joint', 'forearm_roll_joint', 'wrist_flex_joint', 'wrist_roll_joint']
+
+#     while not rospy.is_shutdown():
+#         print(joint_reader.get_joints(names))
+#         rospy.sleep(0.5)
+#     rospy.spin()
