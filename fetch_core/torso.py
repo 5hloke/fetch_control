@@ -14,7 +14,7 @@ class Torso(object):
     """Torso controls the robot's torso height.
     """
     MIN_HEIGHT = 0.0
-    MAX_HEIGHT = 0.35
+    MAX_HEIGHT = 0.40
 
     def __init__(self):
         '''

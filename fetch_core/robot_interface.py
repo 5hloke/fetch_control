@@ -15,7 +15,6 @@ from arm_joints import ArmJoints
 from base import Base
 from camera import RGBD
 from head import Head
-from gripper import Gripper
 from torso import Torso
 from reader import JointStateReader
 DEG_TO_RAD = np.pi / 180
@@ -38,7 +37,7 @@ class Fetch(object):
         self.base = Base()
         self.camera = RGBD()
         self.head = Head()
-        self.gripper = Gripper(self.camera)
+        # self.gripper = Gripper(self.camera)
         self.torso = Torso()
         self.joint_reader = JointStateReader()
 

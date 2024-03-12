@@ -38,8 +38,10 @@ if __name__ == "__main__":
     fetch.move_arm_joints(joint_States)
     # print(result)
     rospy.loginfo("...done")
-    for i in range(len(fetch.arm.feedback)):
-        print(fetch.arm.feedback[i])
+    print(len(fetch.arm.feedback))
+    # for i in range(len(fetch.arm.feedback)):
+    #     print(fetch.arm.feedback[i])
+
     # rospy.loginfo("...connected.")
 
     # rospy.loginfo("Setting positions...")
