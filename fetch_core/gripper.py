@@ -3,9 +3,6 @@ import actionlib
 import control_msgs.msg
 import rospy
 import tf
-import tf2_ros
-import tf2_geometry_msgs
-import IPython
 import numpy as np
 import thread
 from image_geometry import PinholeCameraModel as PCM

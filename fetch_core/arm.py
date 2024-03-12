@@ -39,6 +39,7 @@ class Arm(object):
         self._joint_client = actionlib.SimpleActionClient(
             JOINT_ACTION_SERVER, control_msgs.msg.FollowJointTrajectoryAction)
         self._joint_client.wait_for_server(rospy.Duration(10))
+        self.feedback = []
         # self._tf_listener = TransformListener()
 
     def move_to_waypoints(self, waypoints):
@@ -55,7 +56,7 @@ class Arm(object):
             
         goal.trajectory = trajectory
         goal.goal_time_tolerance = rospy.Duration(0.0)
-        self._joint_client.send_goal(goal)
+        self._joint_client.send_goal(goal, feedback_cb=self.feedback_cb)
      
     def wait_client(self, time):
         self._joint_client.wait_for_result(rospy.Duration(time))
@@ -63,6 +64,11 @@ class Arm(object):
     
     def cancel_all_goals(self):
         self._joint_client.cancel_all_goals()
+    
+    def feedback_cb(self, feedback):
+        self.feedback.append(feedback)
+        rospy.loginfo("Feedback: {0}".format(feedback))
+
 
 
 
