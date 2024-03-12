@@ -9,7 +9,7 @@ import numpy as np
 import rospy
 import sys
 if __name__ == "__main__":
-    rospy.init_node("prepare_simulated_robot")
+    # rospy.init_node("prepare_simulated_robot")
     joint_states = np.load("../export_0304/2_folded_to_side/output_traj.npy")
     wrist_roll_traj = np.zeros((joint_states.shape[0], 3, 1))
     joint_States = np.concatenate((joint_states, wrist_roll_traj), axis=2)
@@ -35,9 +35,11 @@ if __name__ == "__main__":
     rospy.loginfo("Setting Torso...")
     fetch.torso.set_height(0.4)
     rospy.loginfo("...done")
-    result = fetch.move_arm_joints(joint_States)
-    print(result)
+    fetch.move_arm_joints(joint_States)
+    # print(result)
     rospy.loginfo("...done")
+    for i in range(len(fetch.arm.feedback)):
+        print(fetch.arm.feedback[i])
     # rospy.loginfo("...connected.")
 
     # rospy.loginfo("Setting positions...")

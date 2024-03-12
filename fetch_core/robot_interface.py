@@ -73,9 +73,9 @@ class Fetch(object):
         """
         rospy.loginfo("Setting arm positions...")
         self.arm.move_to_waypoints(waypoints)
-        self.result = self.arm.wait_client(waypoints[-1, 0, 0] + 5)
+        self.arm.wait_client(waypoints[-1, 0, 0] + 5)
         rospy.loginfo("...Arm done")
-        return self.result
+        # return self.result
 
     def get_img_data(self):
         """Obtain camera and depth image.

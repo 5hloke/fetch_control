@@ -60,7 +60,7 @@ class Arm(object):
      
     def wait_client(self, time):
         self._joint_client.wait_for_result(rospy.Duration(time))
-        return self._joint_client.get_result()
+        # return self._joint_client.get_result()
     
     def cancel_all_goals(self):
         self._joint_client.cancel_all_goals()
