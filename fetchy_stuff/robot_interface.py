@@ -20,7 +20,10 @@ from reader import JointStateReader
 DEG_TO_RAD = np.pi / 180
 ZRANGE = 20
 
-
+'''
+TODO: Need to right functions in the Fetch class to control ther base and control the head joint
+TODO: Need to create gripper class separately to control the gripper and then use it in Fetch here
+'''
 class Fetch(object):
     """For usage with the Fetch robot."""
 
@@ -33,16 +36,13 @@ class Fetch(object):
         """
         rospy.init_node("fetch")
         self.arm = Arm()
-        # self.arm_joints = ArmJoints()
         self.base = Base()
         self.camera = RGBD()
         self.head = Head()
-        # self.gripper = Gripper(self.camera)
         self.torso = Torso()
         self.joint_reader = JointStateReader()
 
-        # Tucked arm starting joint angle configuration
-        # self.names = ArmJoints().names()
+        # Tucked arm starting joint angle configurations
         self.tucked = [1.3200, 1.3999, -0.1998, 1.7199, 0.0, 1.6600, 0.0]
         self.tucked_list = [(x,y) for (x,y) in zip(self.names, self.tucked)]
 
