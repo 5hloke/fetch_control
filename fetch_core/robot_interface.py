@@ -3,7 +3,7 @@ import geometry_msgs
 from geometry_msgs.msg import PoseStamped, Pose, Point, Quaternion, WrenchStamped
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Joy
-from tf import TransformListener, TransformBroadcaster
+# from tf import TransformListener, TransformBroadcaster
 from cv_bridge import CvBridge, CvBridgeError
 import copy, math, rospy, time
 #import config_core as cfg # ?
@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from arm import Arm
-from arm_joints import ArmJoints
+# from arm_joints import ArmJoints
 from base import Base
 from camera import RGBD
 from head import Head
@@ -33,7 +33,7 @@ class Fetch(object):
         """
         rospy.init_node("fetch")
         self.arm = Arm()
-        self.arm_joints = ArmJoints()
+        # self.arm_joints = ArmJoints()
         self.base = Base()
         self.camera = RGBD()
         self.head = Head()
@@ -42,7 +42,7 @@ class Fetch(object):
         self.joint_reader = JointStateReader()
 
         # Tucked arm starting joint angle configuration
-        self.names = ArmJoints().names()
+        # self.names = ArmJoints().names()
         self.tucked = [1.3200, 1.3999, -0.1998, 1.7199, 0.0, 1.6600, 0.0]
         self.tucked_list = [(x,y) for (x,y) in zip(self.names, self.tucked)]
 

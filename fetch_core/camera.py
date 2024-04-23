@@ -73,7 +73,7 @@ class RGBD(object):
     def read_info_data(self):
         return self._info
 
-
+# testing the camera interface
 if __name__ == "__main__":
     rospy.init_node("fetch_rgbd")
     rgbd = RGBD()
